@@ -1,68 +1,174 @@
-# AutoPix
+# 🚀 Paragonn Pix
 
- O AutoPix é um plugin Spigot que integra <b>código QR</b> PIX dentro do Minecraft e permite que os jogadores comprem itens e recebam automaticamente em questão de segundos.
+<p align="center">
+  <strong>Pagamento via PIX totalmente integrado ao Minecraft</strong>
+</p>
 
-## Como funciona?
-
-O jogador digita `/comprarpix` e um menu será mostrado com os produtos disponíveis:
-
-<img src="https://i.imgur.com/JEaNamt.png" align="middle" width="350px;">
-
-e quando ele confirmar a compra receberá nas mãos um QR code para pagar por PIX:
-
-<img src="https://i.imgur.com/UqkV1n4.png" align="middle" width="250px">
-
-## Modos de validação
-**Modo automático:** No modo automático o jogador só precisa aguardar a confirmação do pagamento. A cada `x` segundos 
-o plugin faz uma verificação nos status dos pedidos pendentes e ativa ao ser aprovado. Quanto menor o tempo de
-verificação mais instantânea será a confirmação, porém serão mais requisições para a API do MP, o que pode prejudicar o
-desempenho do servidor se for muito baixo.
-
-**Modo manual:** Após pagar pelo banco de preferência ele obtém o código do PIX e faz `/pix validar <Codigo>`. 
-A única vantagem desse modo é que não cobra taxas, pois o PIX é realizado direto para a chave configurada. Ao validar é feito
-a busca nas transações a partir do código E2E do PIX. Pode ter limitações se muitas transações forem realizadas, o mais
-recomendado é o modo automático.
-
-Você pode configurar comandos para dar VIP, dinheiro, itens, etc.
- 
-
-## Comandos
-Além dos comandos já mencionados o plugin conta com o comando `/pix info` que abre um livro com instruções de como validar para os seus jogadores não terem dúvidas:
-
-<img src="https://i.imgur.com/2IOTGDy.png" align="middle" width="250px">
-
-Existe também o comando `/pix lista` que mostra a lista de ordens criadas pelo jogador e as informações. Para admins pode ser usado `/pix lista <Jogador>` para ver as ordens de outro jogador.
-
-<img src="https://i.imgur.com/sEd6vXT.png" align="middle" width="400px">
-
-Além desses, existem os comandos:
-- `/pix reload` - Recarrega as configurações e mensagens do plugin
-- `/comprarpix <Inventario>` - Abre um inventário específico. Na config é possível criar múltiplos inventários para vender
-diferentes tipos de itens. O plugin não suporta paginação, é necessário colocar o comando em um NPC ou usar outro plugin de
-inventários que execute o comando.
-
-## Permissões
-`autopix.use` - permite realizar compras por PIX
-
-`autopix.admin` - permite ver a lista de pedidos de outros jogadores e dar reload no plugin
-
-## Outras features
-- Todas as mensagens editáveis
-- Limite de tempo entre as ações para evitar sobrecarga no servidor
-- Múltiplos menus
-
-## Vídeos demonstrativos:
-https://youtu.be/vVs14RqBq3Q
-
-https://youtu.be/38rZIy0lXbM
-
-## Download e instalação
-1. Baixe a última versão em <a href="https://github.com/warleysr/autopix/releases">releases</a> e coloque na pasta `plugins` do seu servidor. 
-2. Inicie o servidor para gerar os arquivos
-3. Edite o arquivo `config.yml` colocando o Token do MercadoPago que pode ser obtido <a href="https://www.mercadopago.com.br/settings/account/credentials">aqui</a>
-4. Configure a chave PIX que receberá os pagamentos (ela deve estar vinculada a sua conta do MP)
-5. Configure também a conexão ao banco de dados 
-6. Reinicie o servidor
+<p align="center">
+  <img src="https://img.shields.io/badge/Minecraft-Spigot-green?style=for-the-badge">
+  <img src="https://img.shields.io/badge/Status-Active-success?style=for-the-badge">
+  <img src="https://img.shields.io/badge/License-Open%20Source-blue?style=for-the-badge">
+  <img src="https://img.shields.io/badge/API-MercadoPago-yellow?style=for-the-badge">
+</p>
 
 ---
-Thanks to @rapust for creating <a href="https://github.com/rapust/QRCodeMap">QRCodeMap</a>.
+
+## 🌌 Sobre o Projeto
+
+O **Paragonn Pix** é um plugin avançado para servidores Spigot que permite a integração direta de pagamentos via **PIX** dentro do Minecraft, oferecendo uma experiência moderna, rápida e totalmente automatizada para monetização de servidores.
+
+Com ele, jogadores podem adquirir produtos digitais como VIPs, moedas, itens e permissões utilizando QR Code PIX gerado em tempo real — tudo sem sair do jogo.
+
+A proposta do Paragonn Pix é simples: **transformar o processo de compra em algo fluido, seguro e instantâneo**, elevando o nível de profissionalismo do seu servidor.
+
+---
+
+## ⚙️ Como Funciona
+
+O fluxo de compra foi projetado para ser intuitivo:
+
+1. O jogador executa o comando `/comprarpix`
+2. Um menu interativo é exibido com os produtos disponíveis
+3. Ao selecionar um produto, um QR Code PIX é gerado automaticamente
+4. O jogador realiza o pagamento pelo aplicativo do banco
+5. O sistema valida a transação
+6. A recompensa é entregue automaticamente
+
+Esse processo pode levar apenas alguns segundos dependendo do modo de validação configurado.
+
+---
+
+## 🧠 Modos de Validação
+
+### 🔄 Modo Automático
+
+Neste modo, o sistema realiza verificações periódicas nas transações pendentes utilizando a API do MercadoPago.
+
+* Confirmação automática do pagamento
+* Experiência totalmente hands-free para o jogador
+* Intervalo de verificação configurável
+
+⚠️ Observação:
+Intervalos muito curtos podem aumentar o consumo de recursos do servidor devido à quantidade de requisições.
+
+---
+
+### ✍️ Modo Manual
+
+Após realizar o pagamento, o jogador pode validar manualmente utilizando:
+
+```
+/pix validar <codigo>
+```
+
+* Sem taxas intermediárias
+* Utiliza código E2E do PIX
+* Mais controle, porém menos automático
+
+⚠️ Pode apresentar limitações em ambientes com alto volume de transações.
+
+---
+
+## 🎮 Comandos
+
+### 👤 Jogadores
+
+* `/comprarpix` → Abre o menu principal de compras
+* `/comprarpix <inventario>` → Abre um menu específico
+* `/pix validar <codigo>` → Valida um pagamento manual
+* `/pix lista` → Lista pedidos do jogador
+* `/pix info` → Exibe instruções detalhadas
+* `/produto <produto>` → Exibe o menu de confirmação direta do produto
+
+### 🛠️ Administradores
+
+* `/pix lista <jogador>` → Lista pedidos de outro jogador
+* `/pix reload` → Recarrega configurações
+
+---
+
+## 🔐 Permissões
+
+* `paragonnpix.use` → Permite utilizar o sistema de compras
+* `paragonnpix.admin` → Permite acesso administrativo
+
+---
+
+## ✨ Recursos
+
+* Integração com MercadoPago
+* Geração de QR Code em tempo real
+* Sistema automático de entrega de recompensas
+* Suporte a múltiplos menus de loja
+* Proteção contra spam e sobrecarga
+* Mensagens 100% configuráveis
+* Suporte a banco de dados
+* Alta escalabilidade
+
+---
+
+## 🧩 Casos de Uso
+
+* Venda de VIPs
+* Sistemas de cash
+* Itens exclusivos
+* Liberação de áreas ou perks
+
+---
+
+## 📦 Instalação
+
+1. Baixe a versão mais recente na aba de releases
+2. Coloque o arquivo `.jar` na pasta `plugins`
+3. Inicie o servidor
+4. Configure o arquivo `config.yml`
+
+    * Token do MercadoPago
+    * Chave PIX
+    * Banco de dados
+5. Reinicie o servidor
+
+---
+
+## 🛡️ Segurança
+
+O sistema foi desenvolvido com foco em segurança:
+
+* Validação via API oficial
+* Controle de requisições
+* Proteção contra duplicidade
+
+---
+
+## 📹 Demonstrações
+
+* [https://youtu.be/vVs14RqBq3Q](https://youtu.be/vVs14RqBq3Q)
+* [https://youtu.be/38rZIy0lXbM](https://youtu.be/38rZIy0lXbM)
+
+---
+
+## 🌍 Open Source
+
+O Paragonn Pix é um projeto open source.
+
+Sinta-se livre para contribuir, melhorar o código, sugerir novas funcionalidades ou adaptar o sistema para seu servidor.
+
+---
+
+## 🙏 Créditos
+
+Agradecimentos especiais a **@rapust** pelo projeto base utilizado para geração de QR Codes:
+
+🔗 [https://github.com/rapust/QRCodeMap](https://github.com/rapust/QRCodeMap)
+
+---
+
+## 📜 Licença
+
+Este projeto está disponível sob uma licença open source. Consulte o repositório para mais detalhes.
+
+---
+
+<p align="center">
+  Desenvolvido para elevar o nível dos servidores Minecraft 🚀
+</p>

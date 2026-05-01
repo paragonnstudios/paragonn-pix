@@ -14,7 +14,7 @@ public class ProductCommand implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (!(sender instanceof Player)) {
-			sender.sendMessage("§cEste comando só pode ser usado in-game.");
+			sender.sendMessage("§cEste comando só pode ser usado no jogo.");
 			return true;
 		}
 		

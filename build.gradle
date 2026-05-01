@@ -1,0 +1,56 @@
+plugins {
+    id 'java'
+    id 'com.gradleup.shadow' version '8.3.0'
+}
+
+group = 'studios.paragonn'
+version = '1.0.26'
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['main/java/src']
+        }
+        resources {
+            srcDirs = ['main/resources']
+        }
+    }
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots/" }
+    maven { url = "https://repo.codemc.io/repository/maven-public/" }
+    maven { url = "https://jitpack.io" }
+    maven { url = "https://repo.extendedclip.com/content/repositories/placeholderapi/" }
+}
+
+dependencies {
+    compileOnly 'org.spigotmc:spigot-api:1.18.2-R0.1-SNAPSHOT'
+    compileOnly 'me.clip:placeholderapi:2.11.6'
+    
+    implementation "net.kyori:adventure-text-minimessage:4.17.0"
+    implementation "net.kyori:adventure-text-serializer-legacy:4.17.0"
+    
+    implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+processResources {
+    filteringCharset = 'UTF-8'
+}
+
+shadowJar {
+    archiveFileName = "paragonn-pix.jar"
+}
+
+build.dependsOn shadowJar

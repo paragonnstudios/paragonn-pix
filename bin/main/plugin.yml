@@ -1,0 +1,15 @@
+name: paragonn-pix
+version: 1.0.26
+main: studios.paragonn.pix.PPix
+author: warleysr, neveshardd
+api-version: 1.13
+softdepend: [PlaceholderAPI]
+commands:
+  autopix:
+    description: Valida uma transacao realizada por PIX
+    aliases: [pp, pix]
+  autopixmenu:
+    description: Abre o menu de itens disponivel para compra por PIX
+    aliases: [comprarpix]
+  produto:
+    description: Abre o menu de confirmacao para um produto especifico

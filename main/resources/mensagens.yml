@@ -13,10 +13,10 @@ subtitulo-qr: '&7&le pague pelo &c&lPIX&7&l. Use &f&l/pix info'
 
 # Ajuda
 ajuda-autopix:
-- '&7=========== &bAutoPix &7==========='
-- '&b/pix info &f- &7Ver instrucoes de validacao'
-- '&b/pix lista &f- &7Ver suas transacoes criadas'
-- '&b/pix validar <Codigo> &7- Validar uma transacao por PIX'
+- '&a&lComandos disponíveis:'
+- '&a/pix info &f- &7Ver instrucoes de validacao'
+- '&a/pix lista &f- &7Ver suas transacoes criadas'
+- '&a/pix validar <Codigo> &f- &7Validar uma transacao por PIX'
 - ' '
 
 # Lista

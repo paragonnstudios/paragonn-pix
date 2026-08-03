@@ -1,5 +1,5 @@
 name: paragonn-pix
-version: 1.0.26
+version: ${version}
 main: studios.paragonn.pix.PPix
 author: warleysr, neveshardd
 api-version: 1.13

@@ -20,7 +20,8 @@ automatico:
   
 # Servidor MySQL para salvamento dos dados
 database:
-  type: mysql
+  # mysql, sqlite ou auto (tenta mysql; se falhar ao conectar, cai pra sqlite em arquivo)
+  type: auto
   db: tests
   host: localhost
   port: 3306

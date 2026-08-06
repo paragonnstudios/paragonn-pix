@@ -37,30 +37,38 @@ public class OrderManager {
 	
 	protected static boolean startOrderManager(PPix ap) throws SQLException {
 		FileConfiguration cfg = ap.getConfig();
-		
-		String type = cfg.getString("database.type");
-		String autoIncrement = null;
-		
-		if (type.equalsIgnoreCase("mysql")) {
-			String host = cfg.getString("database.host").trim(), user = cfg.getString("database.user").trim(), 
+
+		String type = cfg.getString("database.type", "auto").trim().toLowerCase();
+		String autoIncrement;
+
+		if (type.equals("mysql") || type.equals("auto")) {
+			String host = cfg.getString("database.host").trim(), user = cfg.getString("database.user").trim(),
 				   pass = cfg.getString("database.pass").trim(), db = cfg.getString("database.db").trim();
 			int port = cfg.getInt("database.port");
-			autoIncrement = "AUTO_INCREMENT";
-			
-			String url = "jdbc:mysql://" + host + ":" + port + "/" + db + "?autoReconnect=true&characterEncoding=utf8&useSSL=false";
-			conn = DriverManager.getConnection(url, user, pass);
+
+			String url = "jdbc:mysql://" + host + ":" + port + "/" + db
+					+ "?autoReconnect=true&characterEncoding=utf8&useSSL=false&connectTimeout=5000";
+			try {
+				conn = DriverManager.getConnection(url, user, pass);
+				autoIncrement = "AUTO_INCREMENT";
+			} catch (SQLException e) {
+				if (!type.equals("auto")) {
+					throw e;
+				}
+				Bukkit.getConsoleSender().sendMessage("§7[paragonn-pix] §eMySQL indisponivel, usando SQLite em arquivo (auto). Motivo: " + e.getMessage());
+				conn = openSqlite(ap);
+				autoIncrement = "AUTOINCREMENT";
+			}
 		}
-		else if (type.equalsIgnoreCase("sqlite")) {
+		else if (type.equals("sqlite")) {
+			conn = openSqlite(ap);
 			autoIncrement = "AUTOINCREMENT";
-			File flatFile = new File(ap.getDataFolder(), "autopix.db");
-			conn = DriverManager.getConnection("jdbc:sqlite:" + flatFile.getAbsolutePath());
-			conn.createStatement().execute("PRAGMA busy_timeout = 5000;");
 		}
 		else {
 			MSG.sendMessage(Bukkit.getConsoleSender(), "db-invalido");
 			return false;
 		}
-		
+
 		conn.prepareStatement("CREATE TABLE IF NOT EXISTS autopix_orders "
 				+ "(id INTEGER PRIMARY KEY " + autoIncrement + ", player VARCHAR(16) NOT NULL,"
 				+ "product VARCHAR(16) NOT NULL, price DECIMAL(10, 2) NOT NULL, "
@@ -72,7 +80,14 @@ public class OrderManager {
 		
 		return true;
 	}
-	
+
+	private static Connection openSqlite(PPix ap) throws SQLException {
+		File flatFile = new File(ap.getDataFolder(), "autopix.db");
+		Connection sqliteConn = DriverManager.getConnection("jdbc:sqlite:" + flatFile.getAbsolutePath());
+		sqliteConn.createStatement().execute("PRAGMA busy_timeout = 5000;");
+		return sqliteConn;
+	}
+
 	public static Order createOrder(Player p, String product, float price) {
 		try {
 			
